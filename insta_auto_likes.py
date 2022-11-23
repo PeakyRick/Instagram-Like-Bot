@@ -1,9 +1,10 @@
 # need to explicitly wait till the page loads
-# Deal with "Page not available" for wrong tags
+# Next: Deal with "Page not available" for wrong tags
 
 """ Instagram Liking Bot
 This instagram bot is able to login to an account with provided credentials
-Then go to the desired hashtags and click on the like buttons of a number of photos under that hashtag
+Then go to the desired hashtags and click on the like buttons of a number of photos 
+under that hashtag as well as under the explore page.
 """
 
 from selenium import webdriver
@@ -15,15 +16,16 @@ import time
 import numpy as np
 import random
 
-from insta_credentials import eric_cred as ERIC
-from insta_credentials import leen_cred as LEEN
-# from insta_credentials import USERNAME, PASSWORD
+# Import credentials that are saved as dictionaries from file "insta_credentials"
+from insta_credentials import user1_cred as user1
+from insta_credentials import user2_cred as user2
 
 options = Options()
 options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
 
 class InstagramLikes:
     def __init__(self, username, password):
+        """Initialize the bot and credentials"""
         self.count = 0
         self.username = username
         self.pw = password
@@ -57,8 +59,9 @@ class InstagramLikes:
         time.sleep(2)
 
         if np.isnan(amount):
+            # In case an amount is specified
             amount = len(images) - 1
-        for i in range(amount): # or range(amount)
+        for i in range(amount):
             like_bttn = self.bot.find_elements(By.CLASS_NAME, "_aamw")
             if len(like_bttn) != 0:
                 # time.sleep(2)
@@ -92,8 +95,6 @@ class InstagramLikes:
     #         bttn.click()
     #     _ = 0
 
-
-
     def _photo_unliked(self):
         """ Check if the post is unliked"""
         liked = self.bot.find_elements(By.CLASS_NAME, "_aame")
@@ -107,18 +108,18 @@ class InstagramLikes:
         return False
 
  
-ric_tags = ["photography","architecture","shotoniphone","travelphotography","urban","toronto","ottawa","travel",
+tags1 = ["photography","architecture","shotoniphone","travelphotography","urban","toronto","ottawa","travel",
             "film","cinematicphotography","ontario","mcmaster","nikon","like4like","likeforlike","follow4follow",
             "explorepage","autumn","fall","nikon","cinematic","streetphotography","35mm","love","art","nature"]
             
-leen_tags = ["cuteboys","asianboys","handsomeman","bollywoodboys","instaboys","follow4follow",
+tags2 = ["cuteboys","asianboys","handsomeman","bollywoodboys","instaboys","follow4follow",
             "followforfollow","like4like","likeforlike","likeforlikes","recentforrecent",
             "instaboys","selfie","nice","instaselfie","asianguy","chineseboy","under1k","chinese",
             "philippines","indian","indianboy","gym","gymselfie","malemodel","random", "menfashion",
             "me","gamerboy","likeme","nerd","eboy","candid","tattooboys","koreanboys","followers","asiangirls"]
 
-ERIC["TAGS"] = ric_tags
-LEEN["TAGS"] = leen_tags
+user1["TAGS"] = tags1
+user2["TAGS"] = tags2
 
 def run_bot(user):
     insta = InstagramLikes(user["USERNAME"], user["PASSWORD"])
@@ -134,9 +135,9 @@ def run_bot(user):
     print(f"Liked {insta.count} posts in total.")
     return
 
-# insta = InstagramLikes(ERIC["USERNAME"], ERIC["PASSWORD"])
+# insta = InstagramLikes(user1["USERNAME"], user1["PASSWORD"])
 # insta.login()
 # insta.like_feed()
 
-for cred in [ERIC,LEEN]:
+for cred in [user1,user2]:
     run_bot(cred)
