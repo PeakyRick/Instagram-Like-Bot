@@ -76,21 +76,21 @@ class InstagramLikes:
                 next_bttn[0].click()
             time.sleep(random.randint(2,3))
 
-    def like_feed(self):
-        """Like the posts in Home feed"""
-        self.bot.get('https://www.instagram.com')
-        time.sleep(3)
-        self.bot.find_element(By.XPATH, "//button[contains( text(),'Not Now')]").click()    # Deal with the Notification window
-        # like_bttn = self.bot.find_elements(By.CLASS_NAME, "_aamw")
-        # for bttn in like_bttn:
-        #     bttn.click()
-        # like_bttn = self.bot.find_elements(By.CLASS_NAME, "_aamw")
-        self.bot.execute_script("window.scrollTo(0, 10000)")
-        time.sleep(2)
-        like_bttn = self.bot.find_elements(By.CLASS_NAME, "_aamw")
-        for bttn in like_bttn:
-            bttn.click()
-        _ = 0
+    # def like_feed(self):
+    #     """Like the posts in Home feed"""
+    #     self.bot.get('https://www.instagram.com')
+    #     time.sleep(3)
+    #     self.bot.find_element(By.XPATH, "//button[contains( text(),'Not Now')]").click()    # Deal with the Notification window
+    #     # like_bttn = self.bot.find_elements(By.CLASS_NAME, "_aamw")
+    #     # for bttn in like_bttn:
+    #     #     bttn.click()
+    #     # like_bttn = self.bot.find_elements(By.CLASS_NAME, "_aamw")
+    #     self.bot.execute_script("window.scrollTo(0, 10000)")
+    #     time.sleep(2)
+    #     like_bttn = self.bot.find_elements(By.CLASS_NAME, "_aamw")
+    #     for bttn in like_bttn:
+    #         bttn.click()
+    #     _ = 0
 
 
 
@@ -134,9 +134,9 @@ def run_bot(user):
     print(f"Liked {insta.count} posts in total.")
     return
 
-insta = InstagramLikes(ERIC["USERNAME"], ERIC["PASSWORD"])
-insta.login()
-insta.like_feed()
+# insta = InstagramLikes(ERIC["USERNAME"], ERIC["PASSWORD"])
+# insta.login()
+# insta.like_feed()
 
-# for cred in [ERIC,LEEN]:
-#     run_bot(cred)
+for cred in [ERIC,LEEN]:
+    run_bot(cred)
